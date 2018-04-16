@@ -2,7 +2,7 @@ const jsonfile = require('jsonfile-promised');
 const fs = require('fs');
 
 module.exports = {
-    saveChanges(course, timeUsed){
+    saveChanges(course, timeUsed) {
         
         let courseFilePath = `${__dirname}/data/${course}.json`;
         if(fs.existsSync(courseFilePath)){
@@ -14,7 +14,7 @@ module.exports = {
             });
         }
     },
-    addCourseData(courseFilePath, timeUsed){
+    addCourseData(courseFilePath, timeUsed) {
         let data = {
             lastTime: new Date().toString(),
             timeUsed: timeUsed
@@ -27,7 +27,7 @@ module.exports = {
                     console.log(err);
                 });
     },
-    createCourseFile(fileName, fileContent){
+    createCourseFile(fileName, fileContent) {
         return jsonfile.writeFile(fileName, fileContent)
                 .then(() => {
                     console.log("Arquivo criado")
@@ -36,8 +36,16 @@ module.exports = {
                     console.log(err);
                 });
     },
-    getCourseData(course){
+    getCourseData(course) {
         let courseFilePath = `${__dirname}/data/${course}.json`;
+        console.log(courseFilePath);
         return jsonfile.readFile(courseFilePath);
+    },
+    getCourseNames() {
+        let files = fs.readdirSync(`${__dirname}/data/`);
+        let courses = files.map((file) => {
+            return file.replace('.json', '');
+        });
+        return courses;
     }
 }

@@ -6,8 +6,11 @@ let aboutLink = document.querySelector('#about-link');
 let playButton = document.querySelector('.play-button');
 let timeSpan = document.querySelector('.time-clock');
 let courseSpan = document.querySelector('.course');
+let addButton = document.querySelector('.add-button');
+let addField = document.querySelector('.add-field');
 
 window.onload = () => {
+    console.log(courseSpan.textContent)
     data.getCourseData(courseSpan.textContent)
         .then((courseData) => {
             timeSpan.textContent = courseData.timeUsed;
@@ -32,4 +35,12 @@ playButton.addEventListener('click', function(){
     }
 
     playButton.src = images[0];
+});
+
+ipcRenderer.on('changed-course', (event, course) => {
+    data.getCourseData(course)
+        .then((courseData) => {
+            timeSpan.textContent = courseData.timeUsed;
+        });
+    courseSpan.textContent = course;
 });
