@@ -1,20 +1,29 @@
+const { ipcRenderer } = require('electron');
 const moment = require('moment');
-let  seconds;
+let seconds = 0;
+let timer;
+let time;
 
 module.exports = {
-    inciar: function(el){
-        let time = moment.duration(el.textContent);
+    start(el) { 
+        time = moment.duration(el.textContent);
         seconds = time.asSeconds();
         
-        setInterval(() => {
+        clearInterval(timer);
+
+        timer = setInterval(()=>{
             seconds++;
             el.textContent = this.formatTime(seconds);
         }, 1000);
+        
     },
-    stop: function(el){
-
+    stop(course){
+        clearInterval(timer);
+        
+        let timeUsed = this.formatTime(seconds);
+        ipcRenderer.send('stoped-course', course, timeUsed);
     },
-    formatTime: function(seconds){
+    formatTime(seconds){
         return moment().startOf('day').seconds(seconds).format("HH:mm:ss");
     }
-}
+};

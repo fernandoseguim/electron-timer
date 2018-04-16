@@ -38,3 +38,8 @@ ipcMain.on('open-about-window', () => {
 ipcMain.on('close-about-window', () => {
     aboutWindow.close();
 });
+
+ipcMain.on('stoped-course', (event, course, timeUsed) => {
+    console.log(course);
+    console.log(timeUsed);
+});
