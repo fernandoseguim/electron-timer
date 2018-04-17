@@ -37,6 +37,16 @@ playButton.addEventListener('click', function(){
     playButton.src = images[0];
 });
 
+addButton.addEventListener('click', function(){
+    let newCourse = addField.value;
+    if(newCourse){
+        courseSpan.textContent = newCourse;
+        timeSpan.textContent = '00:00:00';
+        addField.value = '';
+        ipcRenderer.send('add-new-course', newCourse);
+    }
+});
+
 ipcRenderer.on('changed-course', (event, course) => {
     data.getCourseData(course)
         .then((courseData) => {
@@ -44,3 +54,4 @@ ipcRenderer.on('changed-course', (event, course) => {
         });
     courseSpan.textContent = course;
 });
+

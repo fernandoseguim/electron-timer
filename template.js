@@ -1,6 +1,7 @@
 const data = require('./data');
 
 module.exports = {
+    initialTemplate: null,
     generateTrayMenuTemplate(win) {
         let template = [
             {
@@ -24,7 +25,22 @@ module.exports = {
             }
             template.push(menuItem);
         });
-
+        this.initialTemplate = template;
         return template;
+    },
+    addNewCourseOnTrayMenu(newCourse, win){
+        data.saveChanges(newCourse, '00:00:00');
+        
+        let newMenuItem = {
+            'label': newCourse,
+            type: 'radio',
+            checked: true,
+            click: () => {
+                win.send('changed-course', newCourse);
+                console.log(newCourse);
+            }
+        }
+        this.initialTemplate.push(newMenuItem);
+        return this.initialTemplate;
     }
 }
