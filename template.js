@@ -60,6 +60,17 @@ module.exports = {
 	},
 	generateMainMenuTemplate(app) {
 		let templateMainMenu = [{
+				label: 'Arquivo',
+				submenu: [{
+					label: 'Fechar',
+					click: () => {
+						app.isQuiting = true;
+						app.quit();
+					},
+					accelerator: 'CmdOrCtrl+Q'
+				}]
+			},
+			{
 				label: 'View',
 				submenu: [{
 						role: 'reload'
@@ -85,7 +96,8 @@ module.exports = {
 					label: 'Sobre o Alura Timer',
 					click: () => {
 						ipcMain.emit('open-about-window');
-					}
+					},
+					accelerator: 'CmdOrCtrl+I'
 				}]
 			}
 		];

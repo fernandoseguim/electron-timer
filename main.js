@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
+const { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut } = require("electron");
 const data = require('./data');
 const template = require('./template');
 const manager = require('./manager');
@@ -50,15 +50,16 @@ app.on('ready', () => {
 		}
 		return false;
 	});
+
+	globalShortcut.register('CmdOrCtrl+Alt+S', () => {
+		mainWindow.send('start-stop-timer-shortchut');
+	})
+
 });
 
 
 // app.on('window-all-closed', (event) => {
-// 	if(!app.isQuiting){
-// 		//event.preventDefault();
-// 		mainWindow.hide();
-// 	}
-// 	return false;
+// 	app.quit();
 // });
 
 
