@@ -59,6 +59,13 @@ addButton.addEventListener('click', function () {
 });
 
 ipcRenderer.on('changed-course', (event, course) => {
+	
+	timer.stop(courseSpan.textContent);
+	playButton.src = 'img/play-button.svg';
+	play = false;
+	images = images.reverse();
+	playButton.src = images[0];
+	
 	data.getCourseData(course)
 		.then((courseData) => {
 			timeSpan.textContent = courseData.timeUsed;

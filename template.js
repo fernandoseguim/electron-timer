@@ -12,6 +12,16 @@ module.exports = {
 			},
 			{
 				type: 'separator'
+			},
+			{
+				label: 'Fechar timer',
+				click: () => {
+					app.isQuiting = true;
+        			app.quit();
+				}
+			},
+			{
+				type: 'separator'
 			}
 		];
 
@@ -28,18 +38,6 @@ module.exports = {
 			template.push(menuItem);
 		});
 
-		template.push(
-			{
-				type: 'separator'
-			},
-			{
-				label: 'Fechar timer',
-				click: () => {
-					app.isQuiting = true;
-        			app.quit();
-				}
-			});
-	
 		this.initialTemplate = template;
 		return template;
 	},
@@ -55,7 +53,7 @@ module.exports = {
 				console.log(newCourse);
 			}
 		}
-		this.initialTemplate.push(newMenuItem);
+		this.initialTemplate.push(newMenuItem)
 		return this.initialTemplate;
 	},
 	generateMainMenuTemplate(app) {
